@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: STD24153
+  version: 1.0.0
+  description: This is a specification of STD24135 
+
+servers:
+  - url: http://localhost:8000
+
+components:
+  schemas:
+    PhoneInfo:
+      title: PhoneInfo
+      type: object
+      properties:
+        identifier:
+          type: string
+        brand:
+          type: string
+        model:
+          type: string
+        characteristics:
+          items:
+            $ref: "#/components/schemas/PhoneSpecs"
+
+    PhoneSpecs:
+      title: PhoneSpecs
+      type: object
+      properties:
+        ram_memory:
+          type: integer
+        rom_memory:
+          type: integer
+
+paths:
+  /health:
+    get:
+      description: 'Check server health'
+      responses:
+        '200':
+          description: Server is Ok
+          content:
+            "text/plain":
+              schema:
+                type: string
+                example: "Ok"
