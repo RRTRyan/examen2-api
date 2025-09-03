@@ -35,4 +35,8 @@ def phone_model_serialization():
 @app.post("/phones")
 def post_phones(payload: List[PhoneModel]) -> JSONResponse:
     phone_list.extend(payload)
+    return JSONResponse(status_code=201, content={"phones": phone_model_serialization()}, media_type="application/json")
+
+@app.get("/phones")
+def get_phones():
     return JSONResponse(status_code=200, content={"phones": phone_model_serialization()}, media_type="application/json")
