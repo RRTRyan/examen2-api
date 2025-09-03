@@ -47,3 +47,14 @@ def get_phone_by_id(id: str):
         if phone.identifier == id:
             return JSONResponse(status_code=200, content=phone.model_dump_json(), media_type="application/json")
     return JSONResponse(status_code=404, content={"message": "Phone not found"}, media_type="application/json")
+
+@app.put("/phones/{id}/characteristics")
+def update_phone_characteristics(id: str, Characteristic: CharachteristicsModel):
+    for phone in phone_list:
+        if phone.identifier == id:
+            if Characteristic.ram_memory:
+                phone.characteristics.ram_memory = Characteristic.ram_memory
+            if Characteristic.rom_memory:
+                phone.characteristics.rom_memory = Characteristic.rom_memory
+            return JSONResponse(status_code=200, content=phone.model_dump_json(), media_type="application/json")
+    return JSONResponse(status_code=404, content={"message": "Phone not found"}, media_type="application/json")
