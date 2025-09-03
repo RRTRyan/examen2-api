@@ -8,3 +8,7 @@ app = FastAPI()
 @app.get("/ping")
 def ping() -> Response:
     return Response(status_code=200, content=f"pong", media_type="text/plain")
+
+@app.get("/health")
+def health() -> Response:
+    return Response(status_code=200, content="Ok", media_type="text/plain")
