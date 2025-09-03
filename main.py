@@ -40,3 +40,10 @@ def post_phones(payload: List[PhoneModel]) -> JSONResponse:
 @app.get("/phones")
 def get_phones():
     return JSONResponse(status_code=200, content={"phones": phone_model_serialization()}, media_type="application/json")
+
+@app.get("/phones/{id}")
+def get_phone_by_id(id: str):
+    for phone in phone_list:
+        if phone.identifier == id:
+            return JSONResponse(status_code=200, content=phone.model_dump_json(), media_type="application/json")
+    return JSONResponse(status_code=404, content={"message": "Phone not found"}, media_type="application/json")
